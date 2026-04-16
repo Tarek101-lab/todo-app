@@ -25,18 +25,15 @@ function Todo({
     deleteTodo(todo.id);
   };
 
-  // ✅ Start editing
   const handleEditTodo = () => {
     setIsEditing(true);
   };
 
-  // ✅ Save changes
   const handleSave = () => {
     editTodo(todo.id, { content, dueDate, priority });
     setIsEditing(false);
   };
 
-  // ✅ Cancel editing
   const handleCancel = () => {
     setContent(todo.content);
     setDueDate(todo.dueDate);
