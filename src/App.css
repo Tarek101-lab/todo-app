@@ -178,3 +178,26 @@ select{
   padding: 5px 10px;
   border-radius: 5px;
 }
+.save-button{
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.save-button:hover{
+  background-color: #1e7e34;
+}
+.cancel-button{
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.cancel-button:hover{
+  background-color: #bd2130;
+}

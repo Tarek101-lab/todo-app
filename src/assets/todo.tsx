@@ -1,3 +1,4 @@
+import React from 'react';
 function Todo({
   todo,
   toggleComplete,
@@ -10,6 +11,12 @@ function Todo({
   editTodo: (id: number, updatedData: { content: string; dueDate: string; priority: 'high' | 'medium' | 'low' }) => void
 }) {
 
+  const [isEditing, setIsEditing] = React.useState(false);
+
+  const [content, setContent] = React.useState(todo.content);
+  const [dueDate, setDueDate] = React.useState(todo.dueDate);
+  const [priority, setPriority] = React.useState(todo.priority);
+
   const handleToggleComplete = () => {
     toggleComplete(todo.id);
   };
@@ -17,18 +24,26 @@ function Todo({
   const handleDeleteTodo = () => {
     deleteTodo(todo.id);
   };
-    const handleEditTodo = () => {
-    const updatedContent = prompt("Edit todo content:", todo.content);
-    const updatedDueDate = prompt("Edit due date (YYYY-MM-DD):", todo.dueDate);
-    const updatedPriority = prompt("Edit priority (high, medium, low):", todo.priority);
-    if (updatedContent && updatedDueDate && updatedPriority) {
-        editTodo(todo.id, {
-            content: updatedContent,
-            dueDate: updatedDueDate,
-            priority: updatedPriority as 'high' | 'medium' | 'low'
-        });
-    }
-};
+
+  // ✅ Start editing
+  const handleEditTodo = () => {
+    setIsEditing(true);
+  };
+
+  // ✅ Save changes
+  const handleSave = () => {
+    editTodo(todo.id, { content, dueDate, priority });
+    setIsEditing(false);
+  };
+
+  // ✅ Cancel editing
+  const handleCancel = () => {
+    setContent(todo.content);
+    setDueDate(todo.dueDate);
+    setPriority(todo.priority);
+    setIsEditing(false);
+  };
+
   return (
     <div className='todo-item'>
 
@@ -36,21 +51,54 @@ function Todo({
         {todo.completed ? "✔️" : ""}
       </div>
 
-      <div className="content">
-        {todo.content}
-      </div>
+      {isEditing ? (
+        <>
+          <input
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
 
-      <div className="due">
-        ⏱️ {new Date(todo.dueDate).toDateString()}
-      </div>
+          <input
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+          />
 
-      <i className="edit" onClick={handleEditTodo}>
-        🖊️
-      </i>
+          <select
+            value={priority}
+            onChange={(e) => setPriority(e.target.value as any)}
+          >
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
 
-      <div className={`priority-${todo.priority}`}></div>
+          <button onClick={handleSave} className='save-button'>
+            Save
+          </button>
+          <button onClick={handleCancel} className='cancel-button'>
+            Cancel
+          </button>
+        </>
+      ) : (
+        <>
+          <div className="content">{todo.content}</div>
 
-      <button onClick={handleDeleteTodo} className="delete-button">Delete</button>
+          <div className="due">
+            ⏱️ {new Date(todo.dueDate).toDateString()}
+          </div>
+
+          <i className="edit" onClick={handleEditTodo}>
+            🖊️
+          </i>
+
+          <div className={`priority-${todo.priority}`}></div>
+
+          <button onClick={handleDeleteTodo} className="delete-button">
+            Delete
+          </button>
+        </>
+      )}
 
     </div>
   );
