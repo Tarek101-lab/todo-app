@@ -17,9 +17,11 @@ function TodoList({
   >("all");
 
   const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   const filteredTodos = todos.filter((todo) => {
     const dueDate = new Date(todo.dueDate);
+    dueDate.setHours(0, 0, 0, 0);
 
     if (filter === "today") {
       return dueDate.toDateString() === today.toDateString();
