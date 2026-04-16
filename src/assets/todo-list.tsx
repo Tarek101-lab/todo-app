@@ -40,7 +40,9 @@ function TodoList({
         >
           Today
         </button>
-        <button className="filter-button all" onClick={() => setFilter("all")}>
+        <button 
+        className="filter-button all" 
+        onClick={() => setFilter("all")}>
           All
         </button>
         <button

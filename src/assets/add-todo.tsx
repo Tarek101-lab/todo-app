@@ -14,7 +14,6 @@ function AddTodo({ addTodo }: { addTodo: (todo: any) => void }) {
       priority,
     });
 
-    // reset form
     setContent("");
     setDueDate("");
     setPriority("medium");
