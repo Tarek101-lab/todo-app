@@ -29,7 +29,7 @@ function TodoList({
       return todo.completed;
     }
 
-    return true; // all
+    return true; 
   });
   return (
     <div className="todo">
